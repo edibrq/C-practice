@@ -14,6 +14,7 @@ struct {
 } arrayList;
 
 int main() {
-   arrayList.size = 5;
-   arrayList.originalArr[arrayList.size];
+    int a;
+    int b;
+    printf("%d", &a - &b);
 }
