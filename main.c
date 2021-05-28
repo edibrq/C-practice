@@ -7,17 +7,15 @@ struct node{
     struct node* next; //pointer with address of the next node
 };
 
-struct node* head = NULL; //empty list
-
-void insert(int x){ //insertion to the beginning
+void push(struct node** head, int x){ //insertion to the beginning
     struct node* temp = (struct node*) malloc(sizeof(struct node)); //creating a node
     temp->data = x;
-    temp->next = head;
-    head = temp;
+    temp->next = *head;
+    *head = temp;
 }
 
-void print(){
-    struct node* temp = head;
+void print(struct node** head){
+    struct node* temp = *head;
     printf("The List is:");
     while(temp != NULL){
         printf(" %d",temp->data);
@@ -26,15 +24,28 @@ void print(){
     printf("\n");
 }
 
+void insert(int x){
+//    struct node* temp = (struct node*)malloc(sizeof(struct node));
+//    temp->data = x;
+//    struct node* iter = head;
+//    while(iter != NULL){
+//        iter = iter->next;
+//    }
+//    temp->next = iter;
+}
+
 int main() {
+
+    struct node* head = NULL;
+
     printf("How many elements?\n");
     int n,x;
     scanf("%d",&n);
     for (int i = 0; i < n; ++i) {
         printf("Enter the number:\n");
         scanf("%d",&x);
-        insert(x);
-        print();
+        push(&head, x);
+        print(&head);
     }
 }
 
