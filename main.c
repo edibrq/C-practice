@@ -24,14 +24,20 @@ void print(struct node** head){
     printf("\n");
 }
 
-void insert(int x){
-//    struct node* temp = (struct node*)malloc(sizeof(struct node));
-//    temp->data = x;
-//    struct node* iter = head;
-//    while(iter != NULL){
-//        iter = iter->next;
-//    }
-//    temp->next = iter;
+void insert(struct node** head, int n, int value){
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->data = value;
+}
+
+void pop(struct node** head, int x){
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->data = x;
+    struct node* iter = *head;
+    while(iter != NULL){
+        if(iter->next == NULL)
+            temp->next = iter;
+    }
+
 }
 
 int main() {
@@ -44,7 +50,7 @@ int main() {
     for (int i = 0; i < n; ++i) {
         printf("Enter the number:\n");
         scanf("%d",&x);
-        push(&head, x);
+        pop(&head, x);
         print(&head);
     }
 }
