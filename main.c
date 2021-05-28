@@ -18,12 +18,12 @@ void insert(int x){ //insertion to the beginning
 
 void print(){
     struct node* temp = head;
-    print("The List is:");
+    printf("The List is:");
     while(temp != NULL){
-        print("%d\t",temp->data);
+        printf(" %d",temp->data);
         temp = temp->next;
     }
-    print("\n");
+    printf("\n");
 }
 
 int main() {
@@ -36,8 +36,6 @@ int main() {
         insert(x);
         print();
     }
-
-
 }
 
 
