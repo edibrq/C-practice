@@ -27,6 +27,20 @@ void print(struct node** head){
 void insert(struct node** head, int n, int value){
     struct node* temp = (struct node*)malloc(sizeof(struct node));
     temp->data = value;
+    temp->next = NULL;
+
+    if(n == 1){ //when list is empty
+        temp->next = *head;
+        *head = temp;
+        return;
+    }
+
+    struct node* iter = *head;
+    for (int i = 0; i < n - 2; ++i) {
+        iter = iter->next; //goto n - 1 element of the list
+    }
+    temp->next = iter->next;
+    iter->next = temp;
 }
 
 void pop(struct node** head, int x){
@@ -44,15 +58,25 @@ int main() {
 
     struct node* head = NULL;
 
-    printf("How many elements?\n");
-    int n,x;
-    scanf("%d",&n);
-    for (int i = 0; i < n; ++i) {
-        printf("Enter the number:\n");
-        scanf("%d",&x);
-        pop(&head, x);
-        print(&head);
-    }
+//    printf("How many elements?\n");
+//    int n,x;
+//    scanf("%d",&n);
+//    for (int i = 0; i < n; ++i) {
+//        printf("Enter the number:\n");
+//        scanf("%d",&x);
+//        pop(&head, x);
+//        print(&head);
+//    }
+
+    insert(&head, 1, 2);
+    print(&head);
+    insert(&head, 2, 3);
+    print(&head);
+    insert(&head, 3, 4);
+    print(&head);
+
+
+
 }
 
 
