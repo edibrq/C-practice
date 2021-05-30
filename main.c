@@ -20,7 +20,8 @@ void print(struct node** head){ //WORKING
     printf("\n");
 }
 
-void push(struct node** head, int x){ //insertion to the beginning. WORKING
+void push(struct node** head, int x){ //insertion to the beginning.
+    //TODO: fix the problem with pop and push sequence of calls
     struct node* temp = (struct node*)malloc(sizeof(struct node));
     temp->data = x;
 
@@ -58,7 +59,7 @@ void pop(struct node** head, int x){ //insertion to the end. WORKING
     temp->data = x;
 
     struct node* iter = *head;
-    if((*head) == NULL){
+    if(*head == NULL){
         temp->next = NULL;
         *head = temp;
         return;
@@ -122,10 +123,10 @@ int isContains(struct node** head, int n){ //finding first element with value = 
 
 int main() {
     struct node* head = NULL;
-    push(&head,2);
-    push(&head,3);
-    push(&head,5);
-    push(&head,7);
+    pop(&head,1);
+    pop(&head,3);
+    pop(&head,4);
+    pop(&head,5);
     print(&head);
 
     printf("Is there 2? %d", isContains(&head,2));
