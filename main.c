@@ -1,14 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 struct node{
     int data;
     struct node* next; //pointer with address of the next node
 };
 
-void print(struct node** head){
+void print(struct node** head){ //WORKING
     struct node* temp = *head;
+    if(*head == NULL){
+        printf("List is empty\n");
+        return;
+    }
     printf("The List is:");
     while(temp != NULL){
         printf(" %d",temp->data);
@@ -17,14 +20,21 @@ void print(struct node** head){
     printf("\n");
 }
 
-void push(struct node** head, int x){ //insertion to the beginning
-    struct node* temp = (struct node*) malloc(sizeof(struct node)); //creating a node
+void push(struct node** head, int x){ //insertion to the beginning. WORKING
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
     temp->data = x;
+
+    if(*head == NULL){
+        temp->next = NULL;
+        *head = temp;
+        return;
+    }
+
     temp->next = *head;
     *head = temp;
 }
 
-void insert(struct node** head, int n, int value){
+void insert(struct node** head, int n, int value){ //WORKING
     struct node* temp = (struct node*)malloc(sizeof(struct node));
     temp->data = value;
     temp->next = NULL;
@@ -42,16 +52,31 @@ void insert(struct node** head, int n, int value){
     iter->next = temp; // creating link from n - 1 element to nth element
 }
 
-void pop(struct node** head, int x){
+void pop(struct node** head, int x){ //insertion to the end. WORKING
+    int len = 0;
     struct node* temp = (struct node*)malloc(sizeof(struct node));
     temp->data = x;
+
     struct node* iter = *head;
-    while(iter != NULL){
+    if((*head) == NULL){
+        temp->next = NULL;
+        *head = temp;
+        return;
     }
-    temp->next = iter->next;
+
+    while(iter->next != NULL){ //counting the number of elements
+        iter = iter->next;
+        ++len;
+    }
+
+    for (int i = 0; i < len - 2; ++i) {
+        iter = iter->next;
+    }
+    iter->next = temp;
+    temp->next = NULL;
 }
 
-void delete(struct node** head, int n){
+void delete(struct node** head, int n){ //WORKING
     if(*head == NULL)
         return;
 
@@ -66,19 +91,44 @@ void delete(struct node** head, int n){
     for (int i = 0; i < n - 2; ++i) {
         previous = previous->next;
     }
+
     struct node* currentNode = previous->next;
+
+    if(currentNode->next == NULL){
+        previous->next = NULL;
+        free(currentNode);
+        return;
+    }
+
     previous->next = currentNode->next;
     free(currentNode);
 }
 
+int isContains(struct node** head, int n){ //finding first element with value = n
+    if(*head == NULL){
+        return 0;
+    }
+
+    struct node* iter = *head;
+    while(iter != NULL){
+        if(iter->data == n){
+            return 1;
+        }
+        iter = iter->next;
+    }
+
+    return 0;
+}
+
 int main() {
     struct node* head = NULL;
-    insert(&head,1,3);
-    insert(&head,2,5);
-    insert(&head,3,7);
+    push(&head,2);
+    push(&head,3);
+    push(&head,5);
+    push(&head,7);
     print(&head);
-    delete(&head,2);
-    print(&head);
+
+    printf("Is there 2? %d", isContains(&head,2));
 
 
 }
