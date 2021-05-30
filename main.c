@@ -30,13 +30,11 @@ void insert(struct node** head, int n, int value){
     temp->next = NULL;
 
     if(n == 1){ //when list is empty
-       // temp->next = *head;
         *head = temp;
         return;
     }
-    printf("*head:%d", *head);
+
     struct node* iter = *head;
-    printf("iter.next:%d", iter -> next);
     for (int i = 0; i < n - 2; ++i) { //n - 1 is the first node there
         iter = iter->next; //goto n - 1 element of the list
     }
@@ -53,28 +51,36 @@ void pop(struct node** head, int x){
     temp->next = iter->next;
 }
 
-void delete(struct node** head, int n, int value){
+void delete(struct node** head, int n){
+    if(*head == NULL)
+        return;
+
+    struct node* iter = *head;
     if(n == 1){
-        free(*head);
-        struct node* temp;
-        for (int i = 0; i < n + 1; ++i) {
-            temp = temp->next;
-        }
-        *head = temp;
+        *head = iter->next;
+        free(iter);
         return;
     }
 
-
-    for (int i = 0; i < n + 1; ++i) {
-
+    struct node* previous =*head;
+    for (int i = 0; i < n - 2; ++i) {
+        previous = previous->next;
     }
+    struct node* currentNode = previous->next;
+    previous->next = currentNode->next;
+    free(currentNode);
 }
 
 int main() {
     struct node* head = NULL;
     insert(&head,1,3);
     insert(&head,2,5);
+    insert(&head,3,7);
     print(&head);
+    delete(&head,2);
+    print(&head);
+
+
 }
 
 
