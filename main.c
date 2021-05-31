@@ -6,6 +6,16 @@ struct node{
     struct node* next; //pointer with address of the next node
 };
 
+int length(struct node** head){ //WORKING
+    int len = 0;
+    struct node* temp = *head;
+    while(temp != NULL){
+        ++len;
+        temp = temp->next;
+    }
+    return len;
+}
+
 void print(struct node** head){ //WORKING
     struct node* temp = *head;
     if(*head == NULL){
@@ -18,6 +28,21 @@ void print(struct node** head){ //WORKING
         temp = temp->next;
     }
     printf("\n");
+}
+
+void reverse(struct node** head){
+    struct node* previous, *current, *next;
+    current = *head;
+    previous = NULL;
+
+    while(current != NULL){
+        next = current->next;
+        current->next = previous; // adding ling to the n - 1 element
+        previous = current; // resetting previous -> next
+        current = next; // resetting current -> next
+    }
+
+    *head = previous; // when current is pointing to NULL previous contains index of the last element
 }
 
 void push(struct node** head, int x){ //insertion to the beginning.
@@ -121,17 +146,28 @@ int isContains(struct node** head, int n){ //finding first element with value = 
     return 0;
 }
 
+int findIndex(struct node** head, int n){
+    if(*head == NULL){
+        return 0;
+    }
+
+    struct node* iter = *head;
+    int index = 0;
+    while(iter != NULL){
+        ++index;
+        if(iter->data == n)
+            return index;
+    }
+}
+
 int main() {
     struct node* head = NULL;
-    pop(&head,1);
-    pop(&head,3);
-    pop(&head,4);
-    pop(&head,5);
+    insert(&head, 1, 2);
+    insert(&head, 2, 3);
+    insert(&head, 3, 5);
     print(&head);
-
-    printf("Is there 2? %d", isContains(&head,2));
-
-
+    reverse(&head);
+    print(&head);
 }
 
 
