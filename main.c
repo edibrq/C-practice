@@ -30,7 +30,7 @@ void print(struct node** head){ //WORKING
     printf("\n");
 }
 
-void reverse(struct node** head){
+void reverse(struct node** head){ //WORKING
     struct node* previous, *current, *next;
     current = *head;
     previous = NULL;
@@ -165,6 +165,8 @@ int main() {
     insert(&head, 1, 2);
     insert(&head, 2, 3);
     insert(&head, 3, 5);
+    print(&head);
+    reverse(&head);
     print(&head);
     reverse(&head);
     print(&head);
