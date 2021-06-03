@@ -30,6 +30,23 @@ void print(struct node** head){ //WORKING
     printf("\n");
 }
 
+void recursivePrint(struct node** head){ //WORKING
+    if(*head == NULL){
+        printf("\n");
+        return;
+    }
+    printf("%d ", (*head)->data);
+    recursivePrint(&(*head)->next);
+}
+
+void reversePrint(struct node** head){ //WORKING
+    if(*head == NULL){
+        return;
+    }
+    recursivePrint(&(*head)->next);
+    printf("%d ", (*head)->data);
+}
+
 void reverse(struct node** head){ //WORKING
     struct node* previous, *current, *next;
     current = *head;
@@ -130,6 +147,15 @@ void delete(struct node** head, int n){ //WORKING
     free(currentNode);
 }
 
+void freeList(struct node** head){
+    struct node* temp = *head;
+    if(temp == NULL){
+        free(*head);
+        return;
+    }
+    freeList(&temp->next);
+}
+
 int isContains(struct node** head, int n){ //finding first element with value = n
     if(*head == NULL){
         return 0;
@@ -161,12 +187,11 @@ int findIndex(struct node** head, int n){
 }
 
 int main() {
-    struct node* head = NULL;
+    struct node *head = NULL;
     insert(&head, 1, 2);
     insert(&head, 2, 3);
     insert(&head, 3, 5);
-    print(&head);
-    reverse(&head);
+    recursivePrint(&head);
     print(&head);
     reverse(&head);
     print(&head);
